@@ -1,0 +1,14 @@
+id	author	date	source	text
+web01	cc	08/05/2018	web	"Opposition politician Nikol Pashinyan spearheaded weeks of protests in Armenia that brought an end to 10 years of rule by Serzh Sargsyan.
+Now he has persuaded a parliament dominated by Mr Sargsyan's own party to back him as prime minister, only a week after he lost an initial vote.
+After MPs voted again on Tuesday, thousands of supporters cheered in Republic Square in the capital Yerevan.
+Rock star Serj Tankian of the band System of a Down earlier joined crowds.
+Mr Pashinyan, who led what has become known as Armenia's ""Velvet Revolution"", promised MPs that human rights would be protected, and that corruption and election-rigging would end. 
+""All people are equal before the law. There will be no people enjoying privileges in Armenia. That's it. Full stop,"" he said.
+Why does this matter?
+A landlocked nation of 2.9 million people, Armenia is dependent on Russia for its security and has a Russian military base on its territory.
+Armenia's peaceful uprising against single-party rule - and the way its political leaders responded - is seen as unprecedented for a former Soviet state. Russia has not intervened in the recent political events and Mr Pashinyan told MPs that relations with Moscow would be a priority, particularly military co-operation.
+Why Armenia's 'Velvet Revolution' won without a bullet fired
+Six things you may not know about Armenia
+Russian President Vladimir Putin immediately welcomed Mr Pashinyan's success, looking forward to continuing ""friendly relations"". Armenia is part of Russia's collective security organisation as well as its Eurasian economic union.
+Armenia is also involved in a long-lasting conflict with Azerbaijan over the mountainous territory of Nagorno-Karabakh, an enclave with an ethnic Armenian majority that lies inside Azerbaijan's borders."
