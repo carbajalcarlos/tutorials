@@ -2,6 +2,8 @@
 #### R code for the analysis in Session 4 - JSA
 ###############################################
 ## Read in the data and fix the rownames to the datazone codes
+setwd("D:/code/r/tutorials/qstep-spatial_analysis")
+
 dat <- read.csv(file="Scotland data.csv")
 rownames(dat) <- dat$DZ
 dat$DZ <- NULL

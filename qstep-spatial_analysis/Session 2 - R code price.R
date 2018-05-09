@@ -2,6 +2,8 @@
 #### R code for the analysis in Session 1 - Price
 #################################################
 #### Read in Scotland data - remember to set the working directory first
+setwd("D:/code/r/tutorials/qstep-spatial_analysis")
+
 dat <- read.csv(file="housedata.csv")
 head(dat)
 
@@ -38,6 +40,13 @@ W <- nb2mat(W.nb, style = "B")
 formula <- logprice ~ crime + rooms + sales + driveshop + factor(type)
 model0 <- lm(formula, data=sp.gla@data)
 summary(model0)
+anova(model0)
+
+#### Fit a non-spatial model to check for residual correlation
+formula <- logprice ~ rooms + sales + driveshop + factor(type)
+model0 <- lm(formula, data=sp.gla@data)
+summary(model0)
+anova(model0)
 
 #### Compute the Moran's I statistic for the residuals from model0
 W.list <- nb2listw(W.nb, style = "B")
@@ -65,7 +74,7 @@ sp.gla@data$fitted.price <- exp(model1$fitted.values)
 
 #### fitted vs raw prices plot
 library(ggplot2)
-ggplot(sp.gla@data, aes(x=fitted.price, y=price)) + 
+ggplot(sp.gla@data, aes(x=log(fitted.price), y=log(price))) + 
     geom_point(colour="blue", size=0.5) + 
     coord_equal() + 
     xlab("Fitted price") + 
@@ -85,13 +94,13 @@ sp.gla2 <- merge(temp1, sp.gla@data, by = "id")
 #### Map the fitted probabilities and highight the outlier
 library(ggsn)
 library(RColorBrewer)
-ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(fitted.price))) + 
+ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(logprice))) + 
     geom_polygon() + 
     coord_equal() + 
     xlab("Easting (m)") + 
     ylab("Northing (m)") + 
-    labs(title = "Estimated price in 2008", fill = "Price") +  
-    theme(title = element_text(size=16)) + 
+    labs(title = "Estimated price in 2008", fill = "Log price") +  
+    theme(title = element_text(size=20)) + 
     scale_fill_gradientn(colors=brewer.pal(n=9, name="Reds")) +
     north(sp.gla2, location="topright", symbol=16) + 
     scalebar(sp.gla2, dist=5)
