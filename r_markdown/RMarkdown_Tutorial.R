@@ -4,7 +4,7 @@
 #University of Edinburgh
 
 # Use this example R script to practice compiling an R Markdown file, using the tutorial materials provided at:
-ourcodingclub.github.io
+### ourcodingclub.github.io
 
 # Follow through the tutorial to make a well commented, easy to follow record of what is going on so that others can easily follow.
 
