@@ -3,10 +3,9 @@ title: "RMD_practice"
 author: "Carlos Carbajal"
 date: "9 May 2018"
 output: html_document
-self_contained: no
 ---
 
-```{r setup, include=FALSE}
+```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -16,18 +15,58 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```{r Loading, include = FALSE}
+# Loading required libraries
+library(dplyr, quietly = TRUE)
+library(knitr, quietly = TRUE)
+ 
+
+# Loading required data
+edidiv <- read.csv("D:/code/r/tutorials/r_markdown/edidiv.csv")
+
+#As before, we are going to construct a table of how many species occur in each taxonomic group
+#But in a much less verbose way
+richness <- 
+  edidiv %>%
+    group_by(taxonGroup) %>%
+    summarise(Species_richness = n_distinct(taxonName))
 ```
+
+### This is the result of a miystery
+```{r Summary, echo = FALSE}
+kable(richness)
+```
+
 
 ## Including Plots
 
 You can also embed plots, for example:
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r Barplot, fig.width = 8, fig.height = 6, echo = FALSE, dev = 'svg'}
+barplot(richness$Species_richness, 
+        names.arg = richness$taxonGroup, 
+        xlab="Taxa", ylab="Number of species", 
+        ylim=c(0,600)
+        ) 
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-More info: <https://ourcodingclub.github.io/2016/11/24/rmarkdown-1.html>
+## Ploting dataframes
+```{r, echo = FALSE}
+#Create a barplot
+
+#This time we also want to find the most common species in each taxonomic group
+max_abund <-
+  edidiv %>%
+    group_by(taxonGroup) %>%
+    summarise(taxonName = names(which.max(table(taxonName))))
+
+#Join the two data frames together, using "taxonGroup" as the reference
+richness_abund <-
+inner_join(richness, max_abund, by = "taxonGroup")
+richness_abund <- rename(richness_abund, Most_abundant =  taxonName, Taxon = taxonGroup)
+
+#What does the data frame look like now?
+kable(richness_abund)
+```

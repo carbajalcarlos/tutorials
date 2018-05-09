@@ -13,7 +13,6 @@ library(pander) #to create pretty tables
 ```
 
 ```{r, include=FALSE}
-setwd("~/Desktop")
 edidiv <- read.csv("edidiv.csv")
 ```
 
