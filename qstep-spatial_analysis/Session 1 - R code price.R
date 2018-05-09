@@ -2,6 +2,8 @@
 #### R code for the analysis in Session 1 - Price
 #################################################
 #### Read in Scotland data - remember to set the working directory first
+setwd("D:/code/r/tutorials/qstep-spatial_analysis")
+
 dat <- read.csv(file="housedata.csv")
 head(dat)
 
@@ -74,7 +76,7 @@ ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(logprice))) +
     ylab("Northing (m)") + 
     labs(title = "Log property price in 2008", fill = "Log price") +  
     theme(title = element_text(size=20)) + 
-    scale_fill_gradientn(colors=brewer.pal(n=9, name="Reds")) + 
+    scale_fill_gradientn(colors=brewer.pal(n=9, name="PuBuGn")) + 
     north(sp.gla2, location="topright", symbol=16) + 
     scalebar(sp.gla2, dist=5)
 
@@ -108,6 +110,6 @@ ggmap(myMap) +
     ylab("Latitude") + 
     labs(title = "Log property price in 2008", fill = "Log price") +    
     theme(title = element_text(size=20)) + 
-    scale_fill_gradientn(colors=brewer.pal(n=9, name="Blues"))
+    scale_fill_gradientn(colors=brewer.pal(n=9, name="PuBuGn"))
 
 

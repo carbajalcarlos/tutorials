@@ -1,0 +1,23 @@
+---
+title: "Qstep - Spatial Analysis - Session 1"
+author: "Carlos Carbajal"
+date: "9 May 2018"
+output: html_document
+---
+
+<!-- ```{r setup, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = TRUE) -->
+<!-- ``` -->
+
+# Initialization
+## Loading required libraries
+```{r library}
+require(ggsn, quietly = TRUE)
+require(pander, quietly = TRUE)
+```
+
+## Loading required data
+```{r data}
+dat <- read.csv(file="D:/code/r/tutorials/qstep-spatial_analysis/Scotland data.csv")
+pander(head(dat))
+```

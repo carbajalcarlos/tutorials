@@ -2,6 +2,8 @@
 #### R code for the analysis in Session 1 - JSA
 ###############################################
 #### Read in Scotland data - remember to set the working directory first
+setwd("D:/code/r/tutorials/qstep-spatial_analysis")
+
 dat <- read.csv(file="Scotland data.csv")
 head(dat)
 
@@ -11,7 +13,7 @@ gla <- dat[dat$HB=="Greater Glasgow & Clyde" & dat$urban==1, ]
 
 
 #### Read in the shapefiles
-library(shapefiles)
+require(shapefiles, quietly = TRUE)
 shp <- read.shp(shp.name = "datazone.shp")
 dbf <- read.dbf(dbf.name = "datazone.dbf")
 
@@ -27,8 +29,8 @@ head(dbf$dbf)
 
 
 #### Merge the data to create the spatialPolygonsDataFrame object
-library(CARBayes)
-library(sp)
+library(CARBayes, quietly = TRUE)
+library(sp, quietly = TRUE)
 sp.gla <- combine.data.shapefile(data=gla, shp=shp, dbf=dbf)
 class(sp.gla)
 
@@ -47,12 +49,12 @@ sp.gla@data$propJSA2011 <- sp.gla@data$JSA2011 / sp.gla@data$workpop2011
 
 
 #### Create the W matrix
-library(spdep)
+require(spdep, quietly = TRUE)
 W.nb <- poly2nb(sp.gla, row.names = rownames(sp.gla@data))
 W <- nb2mat(W.nb, style = "B")
 class(W)
 dim(W)
-
+W[1:10, 1:10]
 
 #### Compute the Moran's I statistic
 W.list <- nb2listw(W.nb, style = "B")
@@ -60,16 +62,16 @@ moran.mc(x = sp.gla@data$propJSA2011, listw = W.list, nsim = 10000)
 
 
 #### Preliminary steps in using ggplot2
-library(ggplot2)
-library(rgeos)
-library(maptools)
+require(ggplot2, quietly = TRUE)
+require(rgeos, quietly = TRUE)
+require(maptools, quietly = TRUE)
 sp.gla@data$id <- rownames(sp.gla@data)
 temp1 <- fortify(sp.gla, region = "id")
 sp.gla2 <- merge(temp1, sp.gla@data, by = "id")
 
 
 #### Create a basic map
-ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(propJSA2011))) + 
+ggplot(data = sp.gla2, mapping = aes(x=long, y=lat, goup=group, fill = c(propJSA2011))) + 
     geom_polygon() + 
     coord_equal() + 
     xlab("Easting (m)") + 
@@ -86,7 +88,7 @@ ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(propJSA2011))) +
     ylab("Northing (m)") + 
     labs(title = "JSA proportion in 2011", fill = "Proportion") +  
     theme(title = element_text(size=20)) + 
-    scale_fill_gradientn(colors=brewer.pal(n=9, name="Reds"))
+    scale_fill_gradientn(colors=brewer.pal(n=9, name="PuBuGn"))
 
 
 #### Add a north arrow and scalebar
@@ -98,7 +100,7 @@ ggplot(data = sp.gla2, aes(x=long, y=lat, goup=group, fill = c(propJSA2011))) +
     ylab("Northing (m)") + 
     labs(title = "JSA proportion in 2011", fill = "Proportion") +  
     theme(title = element_text(size=20)) + 
-    scale_fill_gradientn(colors=brewer.pal(n=9, name="Reds")) +
+    scale_fill_gradientn(colors=brewer.pal(n=9, name="PuBuGn")) +
     north(sp.gla2, location="topright", symbol=16) + 
     scalebar(sp.gla2, dist=5)
 
@@ -126,12 +128,12 @@ myMap <- get_map(location=centre, maptype="roadmap", zoom=10)
 
 ## Plot the map
 ggmap(myMap) + 
-    geom_polygon(data=sp.gla4, aes(x=long, y=lat, group=group, fill=c(propJSA2011)), alpha=0.8) +
+    geom_polygon(data=sp.gla4, aes(x=long, y=lat, group=group, fill=c(propJSA2011)), alpha=0.9) +
     xlab("Longitude") + 
     ylab("Latitude") + 
     labs(title = "JSA proportion in 2011", fill = "Proportion") +  
     theme(title = element_text(size=20)) + 
-    scale_fill_gradientn(colors=brewer.pal(n=9, name="Blues"))  + 
+    scale_fill_gradientn(colors=brewer.pal(n=9, name="PuBuGn"))  + 
     scale_x_continuous(limits = extent[1, ]) +
     scale_y_continuous(limits = extent[2, ])
     
