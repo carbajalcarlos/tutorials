@@ -2,7 +2,8 @@
 title: "R Markdown Tutorial Demo"
 author: "John Doe"
 date: "21/11/2016"
-output: html_document
+output: html_document:
+  selfcontainded: no
 ---
 
 ##Preamble
