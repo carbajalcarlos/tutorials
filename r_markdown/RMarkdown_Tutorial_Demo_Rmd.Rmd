@@ -10,6 +10,7 @@ output: html_document
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr) #for data manipulation
 library(pander) #to create pretty tables
+.libPaths("H:/code/r/tutorials/0_libraries")
 ```
 
 ```{r, include=FALSE}
