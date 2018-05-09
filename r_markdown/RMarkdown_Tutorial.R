@@ -13,7 +13,7 @@ library(dplyr)
 
 #We will be using the biodiversity data from the first Tutorial
 setwd("")
-edidiv <- read.csv("edidiv.csv")
+edidiv <- read.csv("r_markdown/edidiv.csv")
 
 #As before, we are going to construct a table of how many species occur in each taxonomic group
 #But in a much less verbose way
